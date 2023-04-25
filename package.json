@@ -1,0 +1,28 @@
+{
+  "name": "affiliate-post-bot",
+  "version": "1.0.0",
+  "description": "affiliate products post bot for fulldealsusa.com",
+  "main": "index.js",
+  "engines": {
+    "node": "16.13.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emiro Trechy",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1309.0",
+    "axios": "^1.2.6",
+    "colors": "^1.4.0",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "image-downloader": "^4.3.0",
+    "mongoose": "^6.3.6",
+    "node-cron": "^3.0.2",
+    "superagent": "^8.0.9",
+    "uuid": "^9.0.0",
+    "wpapi": "^1.2.2"
+  }
+}
