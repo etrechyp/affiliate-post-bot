@@ -20,9 +20,9 @@ let count = 0;
 class Bot {
     constructor() {
         consoleLog.info('bot started');
-        consoleLog.wait('waiting for cron job');
+        consoleLog.wait('waiting for scheduled run');
         // this.database();
-        // this.start(); // for testing
+        this.start(); // for testing
         cron.schedule('*/30 * * * *', () => {
             consoleLog.info(`starting cron job ${count}`);
             this.start();
@@ -78,9 +78,9 @@ class Bot {
                 count++;
                 consoleLog.info(`product id: ${post_id}`);
                 consoleLog.info(`products posted: ${count}`);
-                consoleLog.wait('waiting for next job');
+                consoleLog.wait('waiting for next scheduled run');
             } catch (err) {
-                consoleLog.error(err)
+                consoleLog.error(err.message);
                 setTimeout(() => {
                     deletePost(post_id);
                     rm_img(img_file_url);

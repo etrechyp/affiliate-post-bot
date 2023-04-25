@@ -11,15 +11,15 @@ const wp = new WPAPI({
     auth: true
 });
 
-exports.createPost = async (info, category) =>{
+exports.createPost = async (info) =>{
     try {
         let title = info.discount + "% Discount on " + info.name
         let id = await wp.posts()
             .create({
                 title: title,
                 content: "<h1>Content here.!</h1>>",
-                categories: category,
-                status: "publish",
+                categories: 2706,
+                status: "draft",
                 template: "elementor_header_footer",
             })
             .then(res => {
@@ -30,7 +30,7 @@ exports.createPost = async (info, category) =>{
             })
         return id
     } catch (err) { 
-        consoleLog.error(err);
+        consoleLog.error(err.message);
     }
 }
 
@@ -72,7 +72,7 @@ exports.publishPost = async (info) => {
         let res = await wp.posts().id(info.post_id).update({
             content: wp_content,
             featured_media: info.imgID,
-            status: 'draft'
+            status: 'publish'
         })
             .then(function (response) {
                 return response['status']
