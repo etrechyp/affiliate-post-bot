@@ -16,13 +16,12 @@ const {
 
 let count = 0;
 
-
 class Bot {
     constructor() {
         consoleLog.info('bot started');
         consoleLog.wait('waiting for scheduled run');
         // this.database();
-        this.start(); // for testing
+        // this.start(); // for testing
         cron.schedule('*/30 * * * *', () => {
             consoleLog.info(`starting cron job ${count}`);
             this.start();

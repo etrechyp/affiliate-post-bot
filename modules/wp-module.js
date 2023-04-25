@@ -18,7 +18,7 @@ exports.createPost = async (info) =>{
             .create({
                 title: title,
                 content: "<h1>Content here.!</h1>>",
-                categories: 2706,
+                categories: 2706, 
                 status: "draft",
                 template: "elementor_header_footer",
             })
@@ -98,7 +98,7 @@ exports.deletePost = async (id) => {
 exports.rm_img = (url) => {
     try {
         fs.unlinkSync(url)
-        consoleLog.send(`Removed imgage from ./temp/: Success`)
+        consoleLog.send(`Removed image from temp/: Success`)
     } catch (err) { 
         consoleLog.error(err)
     }
@@ -117,7 +117,7 @@ exports.downloadImage = async (url, name_img) => {
             .catch(err => {
                 consoleLog.error(err)
             })
-        consoleLog.send('Download image to ./temp/: Success')
+        consoleLog.send('Download image to temp/: Success')
         return res_img
     } catch (err) {
         consoleLog.error(err)
