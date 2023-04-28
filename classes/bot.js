@@ -22,7 +22,7 @@ class Bot {
         consoleLog.wait('waiting for scheduled run');
         // this.database();
         // this.start(); // for testing
-        cron.schedule('*/30 * * * *', () => {
+        cron.schedule(process.env.CRON, () => {
             consoleLog.info(`starting cron job ${count}`);
             this.start();
         });
@@ -34,16 +34,16 @@ class Bot {
 
     async start() {
         consoleLog.info("running bot ...")
-        //TODO - add a randomizer to choose between amazon, ebay, impact, collective and others
-        switch (Math.floor(Math.random() * 2)) {
+        //TODO: add a randomizer to choose between amazon, ebay, impact, collective and others
+        switch (Math.floor(Math.random() * 1)) {
             case 0:
-                consoleLog.info('searching on collective')
-                this.item = await searchOnCollective();
-                break;
-            case 1:
                 consoleLog.info('searching on impact')
                 this.item = await searchOnimpact();
                 break;
+            // case 1:
+            //     consoleLog.info('searching on collective')
+            //     this.item = await searchOnCollective();
+            //     break;
         }
 
         while (this.item) {

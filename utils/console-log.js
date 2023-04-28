@@ -20,7 +20,7 @@ error = function(string) {
     console.log(colors.brightBlue("[" + currentDate + "] ") + colors.bgRed("_Bot$:")+ " " + string);
     setInterval(() => {
         process.exit(0);
-    }, 10000);
+    }, 30000);
 }
 
 module.exports = {
