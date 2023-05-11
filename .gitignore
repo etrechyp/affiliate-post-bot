@@ -3,3 +3,4 @@ temp/*.*
 .env
 package-lock.json
 start.bat
+*.save

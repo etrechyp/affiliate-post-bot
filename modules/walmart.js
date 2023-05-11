@@ -1,12 +1,19 @@
+// Walmart from Impact API
 const axios = require('axios');
 
-const catalogId = [4657, 8042]
+const catalogId = [
+    9671, 9672, 9674, 9742, 9743, 9744,
+    9746, 9748, 9749, 9750, 9752, 9752,
+    9753, 9754, 9756, 9758, 9760, 9761,
+    9763, 9766, 9767, 9768, 9769, 9770,
+    9775, 9780, 9783, 9784, 9786, 9788
+];
 
-searchOnImpact = async () => {
+searchOnWalmart = async () => {
     let rnd = Math.floor(Math.random() * catalogId.length);
     let config = {
         headers: { 'Authorization': `Basic ${Buffer.from(`${process.env.IMPACT_CLIENT_ID}:${process.env.IMPACT_CLIENT_SECRET}`).toString('base64')}` },
-        params: { Query: "CurrentPrice < 30 AND DiscountPercentage > 59 AND StockAvailability='InStock'" }
+        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage > 50 AND StockAvailability='InStock'" }
     };
     try {
         const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
@@ -27,14 +34,16 @@ searchOnImpact = async () => {
                 campaign: response.data.Items[random].CampaignName,
             }
         };
-
+        
+        console.log(product)
         if (product.name) {
             return product
         }
 
-    } catch (err) { 
+    } catch (err) {
+        console.log(catalogId[rnd])
         console.log(err);
     }
 }
 
-module.exports = searchOnImpact;
+module.exports = searchOnWalmart;
