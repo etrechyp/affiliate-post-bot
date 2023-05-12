@@ -13,7 +13,7 @@ searchOnWalmart = async () => {
     let rnd = Math.floor(Math.random() * catalogId.length);
     let config = {
         headers: { 'Authorization': `Basic ${Buffer.from(`${process.env.IMPACT_CLIENT_ID}:${process.env.IMPACT_CLIENT_SECRET}`).toString('base64')}` },
-        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage > 50 AND StockAvailability='InStock'" }
+        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage >= 50 AND StockAvailability=InStock" }
     };
     try {
         const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
