@@ -26,7 +26,7 @@ class Bot {
         consoleLog.info('bot started');
         consoleLog.wait('waiting for scheduled run');
         // this.database();
-        // this.startWalmart(); // for testing
+        this.start(); // for testing
         cron.schedule(process.env.CRON, () => {
             consoleLog.info(`starting cron job ${count}`);
             this.start();
@@ -45,21 +45,21 @@ class Bot {
     async start() {
         consoleLog.info("running bot ...")
 
-        switch (Math.floor(Math.random() * 2)) {
+        switch (Math.floor(Math.random() * 1)) {
             case 0:
                 consoleLog.info('searching on impact')
                 this.item = await searchOnimpact();
                 break;
-            case 1:
-                consoleLog.info('searching on collective')
-                await searchOnCollective()
-                    .then((item) => {
-                        this.item = item;
-                    })
-                    .catch((err) => {
-                        consoleLog.error(err.message);
-                    });
-                break;
+            // case 1:
+            //     consoleLog.info('searching on collective')
+            //     await searchOnCollective()
+            //         .then((item) => {
+            //             this.item = item;
+            //         })
+            //         .catch((err) => {
+            //             consoleLog.error(err.message);
+            //         });
+            //     break;
         }
 
         while (this.item) {

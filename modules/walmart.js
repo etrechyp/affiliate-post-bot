@@ -1,6 +1,6 @@
 // Walmart from Impact API
 const axios = require('axios');
-const consoleLog = require('../../utils/console-log');
+const consoleLog = require('./../utils/console-log');
 
 const catalogId = [
     9671, 9672, 9674, 9742, 9743, 9744,

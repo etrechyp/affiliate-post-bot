@@ -10,7 +10,7 @@ const searchOnCollective = async () => {
 
         const { data } = await axios.get(`http://api.collectivevoice.com/api/v2/lists/search?pid=${process.env.SHOPSTYLE_CLIENT_ID}&limit=1&cat=${category[random]}&sort=${sort[random2]}`);
 
-        if (data.favorites[0].product.currency !== 'USD' || data.favorites[0].product.discount < 50) {
+        if (data.favorites[0].product.currency !== 'USD' || data.favorites[0].product.discount < 50 || data.favorites[0].product.price > 50) {
             return new Promise(resolve => {
                 setTimeout(() => {
                     consoleLog.info('trying again');
