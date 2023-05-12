@@ -16,7 +16,8 @@ searchOnWalmart = async () => {
         params: { Query: "CurrentPrice <= 20 AND DiscountPercentage >= 50 AND StockAvailability=InStock" }
     };
     try {
-        const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
+        //const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
+        const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12`, config);
         let random = Math.floor(Math.random() * response.data.Items.length)
         let product = {
             name: response.data.Items[random].Name,
