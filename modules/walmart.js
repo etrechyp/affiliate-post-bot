@@ -1,4 +1,3 @@
-// Walmart from Impact API
 const axios = require('axios');
 const consoleLog = require('./../utils/console-log');
 
@@ -14,36 +13,36 @@ searchOnWalmart = async () => {
     let rnd = Math.floor(Math.random() * catalogId.length);
     let config = {
         headers: { 'Authorization': `Basic ${Buffer.from(`${process.env.IMPACT_CLIENT_ID}:${process.env.IMPACT_CLIENT_SECRET}`).toString('base64')}` },
-        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage >= 50 AND StockAvailability='InStock'" }
+        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage >= 30 AND StockAvailability='InStock'" }
     };
     try {
         const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
         let random = Math.floor(Math.random() * response.data.Items.length)
         let product = {
-            name: response.data.Items[random].Name,
-            currency: response.data.Items[random].Currency,
-            price: response.data.Items[random].OriginalPrice,
-            current_price: response.data.Items[random].CurrentPrice,
-            discount_percentage: response.data.Items[random].DiscountPercentage,
-            image: response.data.Items[random].ImageUrl,
-            url: response.data.Items[random].Url,
+            name: response.data.Items[random]?.Name,
+            currency: response.data.Items[random]?.Currency,
+            price: response.data.Items[random]?.OriginalPrice,
+            current_price: response.data.Items[random]?.CurrentPrice,
+            discount_percentage: response.data.Items[random]?.DiscountPercentage,
+            image: response.data.Items[random]?.ImageUrl,
+            url: response.data.Items[random]?.Url,
             customData: {
-                productId: response.data.Items[random].Id,
-                catalogId: response.data.Items[random].CatalogId,
-                catalogItemId: response.data.Items[random].CatalogItemId,
-                campaignId: response.data.Items[random].CampaignId,
-                campaign: response.data.Items[random].CampaignName,
+                productId: response.data.Items[random]?.Id,
+                catalogId: response.data.Items[random]?.CatalogId,
+                catalogItemId: response.data.Items[random]?.CatalogItemId,
+                campaignId: response.data.Items[random]?.CampaignId,
+                campaign: response.data.Items[random]?.CampaignName,
             }
         };
-        
-            consoleLog.info('Product found');
-        if (product.name) {
+
+        if (product && (product.price <= 30 && product.discount_percentage >= 30)) {
             return product
         }
 
-    } catch (err) {
-        console.log(catalogId[rnd])
-        console.log(err);
+        consoleLog.info('searching ...')
+        searchOnWalmart();
+    } catch (error) {
+        consoleLog.error(error)
     }
 }
 

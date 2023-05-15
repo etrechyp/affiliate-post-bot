@@ -15,6 +15,11 @@ wait = function(string) {
     console.log(colors.brightBlue("[" + currentDate + "] ") + colors.bgMagenta("_Bot$:")+ " " + string + " ...");
 }
 
+primary = function(string) {
+    currentDate = new Date().toISOString();
+    console.log(colors.brightBlue("[" + currentDate + "] ") + colors.bgCyan("_Bot$:")+ " " + string);
+}
+
 error = function(string) {
     currentDate = new Date().toISOString();
     console.log(colors.brightBlue("[" + currentDate + "] ") + colors.bgRed("_Bot$:")+ " " + string);
@@ -27,5 +32,6 @@ module.exports = {
     send,
     info,
     wait,
+    primary,
     error
 }
