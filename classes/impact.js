@@ -56,11 +56,11 @@ class ImpactBot {
                 
                 rm_img(img_file_url);
 
-                this.item = undefined;
                 count++;
                 consoleLog.info(`product id: ${post_id}`);
                 consoleLog.info(`products posted from impact: ${count}`);
                 consoleLog.wait('waiting for next scheduled run');
+                this.item = undefined;
             } catch (err) {
                 consoleLog.error(err.message);
                 setTimeout(() => {

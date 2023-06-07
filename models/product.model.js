@@ -2,17 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-    asin: {
+    title: {
         type: String,
         required: true
     },
-    published: {
-        type: Boolean,
-        default: false,
+    imgUrl: {
+        type: String,
         required: true
     },
-    date: {
-        type: Date,
+    aff_link: {
+        type: String,
         required: true
     }
     

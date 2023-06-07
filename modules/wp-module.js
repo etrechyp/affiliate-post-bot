@@ -34,6 +34,8 @@ exports.createPost = async (info) =>{
     }
 }
 
+
+
 exports.uploadImage = async (nameImage, post_id) => {
     try {
         let img_info = await wp.media()
@@ -64,6 +66,32 @@ exports.uploadImage = async (nameImage, post_id) => {
     } catch (err) { 
         consoleLog.error(err);
     }
+}
+
+exports.getLatestProducts = () => { 
+    try { 
+        let last_post = [] 
+        wp.posts().perPage(4) 
+            .then(async response => { 
+                for (let i = 0; i < response.length; i++) { 
+                    let { id, date, link, title, author, featured_media } = response[i] 
+                    let data = { id, date, link, title } 
+                    await wp.users().id(author) 
+                        .then(res => { 
+                            data.author = res.name 
+                        }) 
+                    await wp.media().id(featured_media) 
+                        .then(res => { 
+                            data.image_url = res.source_url 
+                        }) 
+                    last_post[i] = data 
+                } 
+                console.log(last_post)
+                return last_post
+            }) 
+    } catch (err) { 
+        console.log("err") 
+    } 
 }
 
 exports.publishPost = async (info) => {

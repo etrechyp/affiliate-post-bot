@@ -13,7 +13,7 @@ searchOnWalmart = async () => {
     let rnd = Math.floor(Math.random() * catalogId.length);
     let config = {
         headers: { 'Authorization': `Basic ${Buffer.from(`${process.env.IMPACT_CLIENT_ID}:${process.env.IMPACT_CLIENT_SECRET}`).toString('base64')}` },
-        params: { Query: "CurrentPrice <= 20 AND DiscountPercentage >= 30 AND StockAvailability='InStock'" }
+        params: { Query: `CurrentPrice <= 20 AND DiscountPercentage >= 30 AND Category!='Adult Toys' AND Category!='Recreational Shooting' AND StockAvailability='InStock'` }
     };
     try {
         const response = await axios.get(`https://api.impact.com/Mediapartners/${process.env.IMPACT_CLIENT_ID}/Catalogs/${catalogId[rnd]}/Items?IrVersion=12&PageSize=1000`, config);
@@ -36,14 +36,13 @@ searchOnWalmart = async () => {
         };
 
         if (product && (product.price <= 30 && product.discount_percentage >= 30)) {
+            consoleLog.send('product found')
             return product
         }
-
         consoleLog.info('searching ...')
         searchOnWalmart();
     } catch (error) {
         consoleLog.error(error)
     }
 }
-
 module.exports = searchOnWalmart;

@@ -5,6 +5,7 @@ const searchOnCollective = require("../modules/collective/searchItem");
 const { 
     createPost,
     uploadImage,
+    getLatestProducts,
     publishPost,
     deletePost,
     downloadImage,
@@ -17,7 +18,7 @@ class CollectiveBot {
     
     constructor() {
         consoleLog.primary('Collective module started');
-        // this.start(); // for testing
+        this.start(); // for testing
         cron.schedule(process.env.CRON_COLLECTIVE, () => {
             consoleLog.info(`collective cron job ${count}`);
             this.start();
@@ -46,7 +47,7 @@ class CollectiveBot {
                     name: this.item.name,
                     discount: this.item.discount_percentage,
                 });
-
+                
                 let img_id = await uuidv4();
         
                 let img_file_url = await downloadImage(this.item.image, img_id);
@@ -64,11 +65,11 @@ class CollectiveBot {
                 
                 rm_img(img_file_url);
 
-                this.item = undefined;
                 count++;
                 consoleLog.info(`product id: ${post_id}`);
                 consoleLog.info(`products posted from collective: ${count}`);
                 consoleLog.wait('waiting for next scheduled run');
+                this.item = undefined;
             } catch (err) {
                 consoleLog.error(err.message);
                 setTimeout(() => {
